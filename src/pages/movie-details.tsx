@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { StarIcon } from "@heroicons/react/24/solid";
 
 import { fetcher } from "../lib/http";
 
-import MovieRatings from "../components/movie-ratings";
+import MovieRatings, { Rating } from "../components/movie-ratings";
 import ActorsContainer from "../components/actors-container";
 import SecondaryDetails from "../components/secondary-details";
+import LoadingStatus from "../components/loading-status";
 
-type MovieDetailsProps = {};
-
-const MovieDetails = ({}: MovieDetailsProps) => {
+const MovieDetails = () => {
     const [details, setDetails] = useState<any>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
@@ -42,6 +40,7 @@ const MovieDetails = ({}: MovieDetailsProps) => {
             }
 
             setDetails(data);
+            setErrorMsg("");
         } catch (error: any) {
             setErrorMsg(error.message);
         } finally {
@@ -50,7 +49,7 @@ const MovieDetails = ({}: MovieDetailsProps) => {
     };
 
     if (isLoading) {
-        return <p>Loading movie details...</p>;
+        return <LoadingStatus text="Loading movie details..." />;
     }
 
     if (errorMsg) {

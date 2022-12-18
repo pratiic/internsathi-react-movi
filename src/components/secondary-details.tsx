@@ -1,6 +1,6 @@
 import { getUnit } from "../lib/strings";
 
-import InfoTag from "./info-tag";
+import InfoRow from "./info-row";
 
 type SecondaryDetailsProps = {
     Director: string;
@@ -41,24 +41,24 @@ const SecondaryDetails = ({
     return (
         <div>
             {/* movie director */}
-            <InfoTag title="Director" value={Director} />
+            <InfoRow title="Director" value={Director} />
             {/* movie writer */}
-            <InfoTag title="Writer" value={Writer} />
+            <InfoRow title="Writer" value={Writer} />
             {/* box office earnings */}
-            <InfoTag title="Box office" value={BoxOffice} />
+            <InfoRow title="Box office" value={BoxOffice} />
             {/* run time of the movie */}
-            <InfoTag
+            <InfoRow
                 title="Run time"
                 value={modifyRuntime(parseInt(Runtime))}
             />
             {/* rated eg, pg-13, r-rated */}
-            <InfoTag title="Rated" value={Rated} />
+            <InfoRow title="Rated" value={Rated} />
             {/* dvd release date */}
-            <InfoTag title="DVD release" value={DVD} />
+            <InfoRow title="DVD release" value={DVD} />
             {/* awards */}
-            <InfoTag title="Awards" value={Awards} />
+            <InfoRow title="Awards" value={Awards} />
             {/* movie language */}
-            <InfoTag title="Language" value={Language} />
+            <InfoRow title="Language" value={Language} />
         </div>
     );
 };

@@ -1,4 +1,4 @@
-type Rating = {
+export type Rating = {
     Source: string;
     Value: string;
 };

@@ -1,5 +1,4 @@
-import { MouseEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 type MovieCardProps = {
     Title: string;
@@ -9,17 +8,10 @@ type MovieCardProps = {
 };
 
 const MovieCard = ({ Title, Year, imdbID, Poster }: MovieCardProps) => {
-    const navigate = useNavigate();
-
-    const handleMovieClick = (event: MouseEvent) => {
-        // navigate to movie details page
-        navigate(`/movies/${imdbID}`);
-    };
-
     return (
-        <div
+        <Link
+            to={`/movies/${imdbID}`}
             className="cursor-pointer h-fit hover:scale-103 hover:shadow-lg hover:shadow-gray-100 active:scale-100 active:shadow-none transition-scale duration-200"
-            onClick={handleMovieClick}
         >
             {/* movie poster */}
             <img
@@ -36,7 +28,7 @@ const MovieCard = ({ Title, Year, imdbID, Poster }: MovieCardProps) => {
                 {/* movie release year */}
                 <h5 className="text-sm text-muted-x">{Year}</h5>
             </div>
-        </div>
+        </Link>
     );
 };
 

@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import { fetcher } from "../lib/http";
 
 import CardsGrid from "../components/cards-grid";
-import { setResults } from "../redux/slices/search-slice";
+import LoadingStatus from "../components/loading-status";
+import Button from "../components/button";
+import Spinner from "../components/spinner";
 
-type SearchProps = {};
-
-const Search = ({}: SearchProps) => {
+const Search = () => {
+    const [results, setResults] = useState([]);
     const [totalResults, setTotalResults] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLoadingMore, setIsLoadingMore] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
-    const { results } = useSelector((state: any) => state.search);
-    const dispatch = useDispatch();
     const { query } = useParams();
 
     useEffect(() => {
@@ -21,26 +24,67 @@ const Search = ({}: SearchProps) => {
         searchMovies();
 
         document.title = `Search | ${query}`;
-    }, [query]);
+    }, [query, currentPage]);
 
     useEffect(() => {
-        return () => {
-            dispatch(setResults([]));
-        };
-    }, []);
+        setCurrentPage(1);
+        setResults([]);
+        setTotalResults(0);
+    }, [query]);
 
     const searchMovies = async () => {
         try {
+            if (currentPage === 1) {
+                setResults([]);
+                setIsLoading(true);
+            } else {
+                setIsLoadingMore(true);
+            }
+
             const { Search, totalResults, Response } = await fetcher(
-                `s=${query}&page=1`
+                `s=${query}&page=${currentPage}`
             );
+
             if (Response === "True") {
                 // movie is found
-                dispatch(setResults(Search));
+                if (currentPage === 1) {
+                    setResults(Search);
+                } else {
+                    setResults(results.concat(Search));
+                }
+
                 setTotalResults(totalResults);
+
+                if (currentPage === 1) {
+                    // when the first page loads, set the number of total pages
+                    setTotalPages(Math.ceil(totalResults / 10));
+                }
+
+                return setErrorMsg("");
             }
-        } catch (error) {}
+
+            throw new Error(
+                `No movie named ${query} was found. Please try with a different name.`
+            );
+        } catch (error: any) {
+            setErrorMsg(error.message);
+        } finally {
+            setIsLoading(false);
+            setIsLoadingMore(false);
+        }
     };
+
+    const handleLoadMoreClick = () => {
+        setCurrentPage(currentPage + 1);
+    };
+
+    if (isLoading) {
+        return <LoadingStatus text="Searching movies..." />;
+    }
+
+    if (errorMsg) {
+        return <p className="error">{errorMsg}</p>;
+    }
 
     return (
         <div>
@@ -56,6 +100,18 @@ const Search = ({}: SearchProps) => {
             </div>
 
             <CardsGrid list={results} />
+
+            {currentPage < totalPages && (
+                <div className="mt-7 w-fit mx-auto">
+                    {isLoadingMore ? (
+                        <Spinner />
+                    ) : (
+                        <Button handleClick={handleLoadMoreClick}>
+                            load more
+                        </Button>
+                    )}
+                </div>
+            )}
         </div>
     );
 };

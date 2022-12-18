@@ -1,15 +1,15 @@
-type InfoTagProps = {
+type InfoRowProps = {
     title: string;
     value: string;
 };
 
-const InfoTag = ({ title, value }: InfoTagProps) => {
+const InfoRow = ({ title, value }: InfoRowProps) => {
     return (
         <div className="w-fit rounded text-muted border-b border-gray-200 py-1 px-2">
             <span className="mr-3 text-sm">{title}</span>
             <span
-                className={`font-semibold ${
-                    value === "N/A" ? "text-gray-500 text-sm" : "text-blue-400"
+                className={`${
+                    value === "N/A" ? "text-gray-500 text-sm" : "text-blue-500"
                 }`}
             >
                 {value}
@@ -18,4 +18,4 @@ const InfoTag = ({ title, value }: InfoTagProps) => {
     );
 };
 
-export default InfoTag;
+export default InfoRow;

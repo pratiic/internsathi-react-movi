@@ -1,6 +1,6 @@
-import { useState, useRef, FormEvent, ChangeEvent } from "react";
+import { useState, FormEvent } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { useDispatch } from "react-redux";
+import { useForm } from "react-hook-form";
 
 type SearchBarProps = {
     placeholder: string;
@@ -11,16 +11,16 @@ const SearchBar = ({ placeholder, onSubmit }: SearchBarProps) => {
     // Although this component is only used once in this app,
     // I have made it reusable by taking placeholder and onSubmit as props
 
-    const [query, setQuery] = useState("");
-    const [isFocused, setIsFocused] = useState(false);
-    // cannot use focus: selector because we need styling on the outer div when the input is focused
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+    const queryField = register("query", { required: true });
 
-    const inputRef = useRef();
-    const dispatch = useDispatch();
+    const [isFocused, setIsFocused] = useState(false); // cannot use focus: selector because we need styling on the outer div when the input is focused
 
-    const handleFormSubmit = (event: FormEvent) => {
-        event.preventDefault();
-
+    const handleFormSubmit = (query: string) => {
         const trimmedQuery = query.trim();
 
         if (trimmedQuery) {
@@ -28,34 +28,23 @@ const SearchBar = ({ placeholder, onSubmit }: SearchBarProps) => {
         }
     };
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setQuery(event.target.value);
-    };
-
-    // const handleSearchIconClick = (event: FormEvent) => {
-    //     // focus the search bar when the search icon is clicked
-    //     inputRef.current?.focus();
-    // };
-
     return (
-        <form onSubmit={handleFormSubmit}>
+        <form onSubmit={handleSubmit((data) => handleFormSubmit(data.query))}>
             <div
                 className={`flex items-center border rounded-full py-2 w-[275px] px-2 bg-gray-50 ${
-                    isFocused ? "border-blue-400" : "border-gray-200"
+                    isFocused ? "border-blue-400" : "border-gray-300"
                 } transition-border duration-200`}
             >
                 <MagnifyingGlassIcon
                     className={`icon mr-2 text-gray-500 transition-text duration-200`}
-                    // onClick={handleSearchIconClick}
                 />
                 <input
+                    {...queryField}
                     type="text"
                     placeholder={placeholder}
-                    onChange={handleInputChange}
                     onFocus={(event) => setIsFocused(true)}
                     onBlur={(event) => setIsFocused(false)}
                     className="flex-1 outline-none mr-2 bg-transparent"
-                    // ref={inputRef}
                 />
             </div>
         </form>
