@@ -21,6 +21,12 @@ const MovieDetails = ({}: MovieDetailsProps) => {
         fetchDetails();
     }, []);
 
+    useEffect(() => {
+        if (details) {
+            document.title = details?.Title;
+        }
+    }, [details]);
+
     const fetchDetails = async (): Promise<void> => {
         try {
             setIsLoading(true);
@@ -51,34 +57,32 @@ const MovieDetails = ({}: MovieDetailsProps) => {
         return <p>{errorMsg}</p>;
     }
 
-    console.log(details);
-
     return (
         <section>
-            <div className="flex pt-3 mb-5">
+            <div className="flex pt-5 mb-5">
                 <div className="flex mr-7">
                     {/* movie poster */}
                     <img
                         src={details?.Poster}
                         alt="poster"
-                        className="max-w-[250px] mr-7 max-h-[350px]"
+                        className="mr-7 max-h-[350px] min-h-[200px] min-w-[250px] bg-gray-100"
                     />
 
                     <div>
                         {/* movie title and release year */}
-                        <h2 className="text-2xl tracking-wide">
+                        <h2 className="text-2xl tracking-wide max-w-[500px]">
                             {details?.Title}{" "}
                             <span className="text-muted text-xl">
                                 ({details?.Year})
                             </span>
                         </h2>
 
-                        <div className="flex flex-col mb-3 text-sm text-muted space-y-1">
+                        <div className="flex flex-col mb-3 mt-1 text-sm text-muted space-y-1">
                             {/* genres of the movie */}
                             <span>{details?.Genre}</span>
 
                             {/* movie release date */}
-                            <span className="text-xs">{details?.Released}</span>
+                            <span>{details?.Released}</span>
                         </div>
 
                         {/* imdb rating */}

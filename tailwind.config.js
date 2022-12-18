@@ -9,6 +9,9 @@ module.exports = {
             scale: {
                 103: "1.03",
             },
+            backgroundImage: {
+                home: "url('/images/theatre.jpg')",
+            },
         },
     },
     plugins: [],

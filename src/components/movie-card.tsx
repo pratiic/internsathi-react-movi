@@ -25,16 +25,16 @@ const MovieCard = ({ Title, Year, imdbID, Poster }: MovieCardProps) => {
             <img
                 src={Poster}
                 alt="poster"
-                className="image rounded-tr rounded-tl min-h-[200px] max-h-[250px] w-full bg-gray-100"
+                className="image rounded-tr rounded-tl min-h-[200px] max-h-[250px] w-full bg-gray-50"
             />
 
-            <div className="bg-gray-50 px-2 py-3 rounded-bl rounded-br">
+            <div className="bg-gray-100 px-2 py-3 rounded-bl rounded-br">
                 {/* movie title */}
-                <h3 className="font-semibold tracking-wide leading-tight mb-1">
+                <h3 className="font-semibold tracking-wide leading-tight mb-1 text-gray-700">
                     {Title}
                 </h3>
                 {/* movie release year */}
-                <h5 className="text-sm text-gray-700">{Year}</h5>
+                <h5 className="text-sm text-muted-x">{Year}</h5>
             </div>
         </div>
     );

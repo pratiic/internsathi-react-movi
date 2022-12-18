@@ -19,6 +19,8 @@ const Search = ({}: SearchProps) => {
     useEffect(() => {
         // when the page first loads and every time the query changes, search movies
         searchMovies();
+
+        document.title = `Search | ${query}`;
     }, [query]);
 
     useEffect(() => {

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { setQuery } from "../redux/slices/search-slice";
 
 import SearchBar from "./search-bar";
+import Logo from "./logo";
 
 type HeaderProps = {};
 
@@ -17,15 +18,16 @@ const Header = ({}: HeaderProps) => {
     };
 
     return (
-        <header className="border-b border-gray-100 py-3">
+        <header className="pt-5">
             <nav className="flex items-center justify-between wrapper">
                 {/* application logo */}
-                <Link
+                {/* <Link
                     to="/"
-                    className="text-gray-700 text-2xl font-semibold tracking-widest"
+                    className="text-blue-500 text-3xl font-semibold tracking-widest"
                 >
                     Movi
-                </Link>
+                </Link> */}
+                <Logo />
 
                 {/* search bar */}
                 <SearchBar

@@ -9,11 +9,22 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(-225deg, #FFFEFF 0%, #D7FFFE 100%);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.overlay::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 @layer components {
@@ -43,5 +54,9 @@ code {
 
   .sub-heading {
     @apply text-muted text-xl font-semibold tracking-wide
+  }
+
+  .highlight {
+    @apply text-blue-500
   }
 }
