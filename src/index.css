@@ -73,10 +73,10 @@ code {
   }
 
   .border-adaptive {
-    @apply border border-gray-200 dark:border-gray-600
+    @apply border border-gray-200 dark:border-gray-700
   }
 
   .border-adaptive-bottom {
-    @apply border-b border-gray-200 dark:border-gray-600
+    @apply border-b border-gray-200 dark:border-gray-700
   }
 }

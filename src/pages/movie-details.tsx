@@ -91,7 +91,7 @@ const MovieDetails = () => {
                             <img
                                 src="/icons/imdb.png"
                                 alt=""
-                                className="w-5 mr-2"
+                                className="w-5 mr-2 rounded"
                             />
 
                             <div className="flex flex-col">
