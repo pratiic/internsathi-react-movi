@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { StarIcon } from "@heroicons/react/24/solid";
 
 import { fetcher } from "../lib/http";
 
-import GenreContainer from "../components/genre-container";
 import MovieRatings from "../components/movie-ratings";
-import InfoTag from "../components/info-tag";
+import ActorsContainer from "../components/actors-container";
+import SecondaryDetails from "../components/secondary-details";
 
 type MovieDetailsProps = {};
 
@@ -22,6 +23,7 @@ const MovieDetails = ({}: MovieDetailsProps) => {
 
     const fetchDetails = async (): Promise<void> => {
         try {
+            setIsLoading(true);
             const data = await fetcher(`i=${imdbID}&plot=full`);
 
             // if successful -> data contains movie details
@@ -35,7 +37,9 @@ const MovieDetails = ({}: MovieDetailsProps) => {
 
             setDetails(data);
         } catch (error: any) {
-            console.log(error);
+            setErrorMsg(error.message);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -50,63 +54,78 @@ const MovieDetails = ({}: MovieDetailsProps) => {
     console.log(details);
 
     return (
-        <section className="flex justify-between pt-3">
-            <div className="flex">
-                {/* movie poster */}
-                <img
-                    src={details?.Poster}
-                    alt="poster"
-                    className="max-w-[250px] mr-7 max-h-[350px]"
-                />
+        <section>
+            <div className="flex pt-3 mb-5">
+                <div className="flex mr-7">
+                    {/* movie poster */}
+                    <img
+                        src={details?.Poster}
+                        alt="poster"
+                        className="max-w-[250px] mr-7 max-h-[350px]"
+                    />
 
-                <div>
-                    {/* movie title and release year */}
-                    <h2 className="text-2xl tracking-wide">
-                        {details?.Title}{" "}
-                        <span className="text-muted text-xl">
-                            ({details?.Year})
-                        </span>
-                    </h2>
+                    <div>
+                        {/* movie title and release year */}
+                        <h2 className="text-2xl tracking-wide">
+                            {details?.Title}{" "}
+                            <span className="text-muted text-xl">
+                                ({details?.Year})
+                            </span>
+                        </h2>
 
-                    <div className="flex flex-col mb-3 text-sm text-muted">
-                        {/* genres of the movie */}
-                        <span>{details?.Genre}</span>
+                        <div className="flex flex-col mb-3 text-sm text-muted space-y-1">
+                            {/* genres of the movie */}
+                            <span>{details?.Genre}</span>
 
-                        {/* movie release date */}
-                        <span className="text-xs">{details?.Released}</span>
-                    </div>
+                            {/* movie release date */}
+                            <span className="text-xs">{details?.Released}</span>
+                        </div>
 
-                    {/* movie ratings */}
-                    {/* <MovieRatings
-                    imdbRating={details?.imdbRating}
-                    ratings={details?.ratings}
-                /> */}
+                        {/* imdb rating */}
+                        <div className="flex items-center text-muted text-sm mb-3">
+                            {/* <StarIcon className="icon text-yellow-400" /> */}
+                            <img
+                                src="/icons/imdb.png"
+                                alt=""
+                                className="w-5 mr-2"
+                            />
 
-                    {/* movie overview */}
-                    <div className="mb-2">
-                        <h3>Overview</h3>
+                            <div className="flex flex-col">
+                                <span>
+                                    <span className="text-black font-semibold">
+                                        {details?.imdbRating}
+                                    </span>
+                                    <span> / 10</span>
+                                </span>
 
-                        <p className="text-muted max-w-[500px]">
-                            {details?.Plot}
-                        </p>
+                                <span className="text-xs">
+                                    ({details?.imdbVotes})
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* movie overview */}
+                        <div className="mb-2">
+                            <h3>Overview</h3>
+
+                            <p className="text-muted max-w-[500px]">
+                                {details?.Plot}
+                            </p>
+                        </div>
                     </div>
                 </div>
+
+                {/* secondary details about the movie */}
+                <SecondaryDetails {...details} />
             </div>
 
-            <div>
-                {/* movie director */}
-                <InfoTag title="Director" value={details?.Director} />
-                {/* movie writer */}
-                <InfoTag title="Writer" value={details?.Writer} />
-                {/* box office earnings */}
-                <InfoTag title="Box office" value={details?.BoxOffice} />
-                {/* run time of the movie */}
-                <InfoTag title="Run time" value={details?.Runtime} />
-                {/* rated eg, pg-13, r-rated */}
-                <InfoTag title="Rated" value={details?.Rated} />
-                {/* dvd release date */}
-                <InfoTag title="DVD release" value={details?.DVD} />
+            {/* movie ratings */}
+            <div className="mb-3">
+                <MovieRatings Ratings={details?.Ratings} />
             </div>
+
+            {/* movie actors */}
+            <ActorsContainer actors={details?.Actors} />
         </section>
     );
 };

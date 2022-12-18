@@ -25,11 +25,23 @@ code {
     @apply h-5 w-5 text-gray-700
   }
 
+  .icon-large {
+    @apply h-6 w-6
+  }
+
   .image {
     @apply object-cover block
   }
 
   .text-muted {
-    @apply text-gray-700
+    @apply text-gray-600
+  }
+
+  .text-muted-x {
+    @apply text-gray-500
+  }
+
+  .sub-heading {
+    @apply text-muted text-xl font-semibold tracking-wide
   }
 }
