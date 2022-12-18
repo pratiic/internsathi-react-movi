@@ -19,7 +19,7 @@ const RatingsContainer = ({ Ratings }: RatingsContainerProps) => {
                     Ratings?.map((rating) => {
                         return (
                             <div
-                                className="flex flex-col border border-gray-200 rounded px-3 py-2"
+                                className="flex flex-col border-adaptive rounded px-3 py-2"
                                 key={rating.Source}
                             >
                                 <span className="text-muted-x font-semibold tracking-wide">

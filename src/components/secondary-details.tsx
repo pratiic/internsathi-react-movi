@@ -14,8 +14,8 @@ type SecondaryDetailsProps = {
 };
 
 const SecondaryDetails = ({
-    Writer,
     Director,
+    Writer,
     BoxOffice,
     Runtime,
     Rated,

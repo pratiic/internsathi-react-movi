@@ -1,7 +1,14 @@
 import MovieCard from "./movie-card";
 
+type MoviePreview = {
+    Title: string;
+    Year: string;
+    imdbID: string;
+    Poster: string;
+};
+
 type CardsGridProps = {
-    list: any;
+    list: MoviePreview[];
 };
 
 const CardsGrid = ({ list }: CardsGridProps) => {

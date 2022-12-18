@@ -18,6 +18,7 @@ module.exports = {
                 1000: "1000px",
                 850: "850px",
                 750: "750px",
+                600: "600px",
                 550: "550px",
                 500: "500px",
                 450: "450px",
@@ -25,4 +26,5 @@ module.exports = {
         },
     },
     plugins: [],
+    darkMode: "class",
 };

@@ -24,7 +24,7 @@ const Overview = ({ overview }: OverviewProps) => {
     return (
         <div className="mb-2">
             {/* show a show more button if the overview is too long */}
-            <h3>Overview</h3>
+            <h3 className="black-white">Overview</h3>
 
             <p className="text-muted max-w-[500px]">
                 {renderOverview()}

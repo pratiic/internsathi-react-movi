@@ -33,7 +33,7 @@ code {
   }
 
   .icon {
-    @apply h-5 w-5 text-gray-700
+    @apply h-5 w-5 text-gray-700 dark:text-gray-400
   }
 
   .icon-large {
@@ -44,12 +44,16 @@ code {
     @apply object-cover block
   }
 
+  .black-white {
+    @apply text-black dark:text-white
+  }
+
   .text-muted {
-    @apply text-gray-600
+    @apply text-gray-600 dark:text-gray-300
   }
 
   .text-muted-x {
-    @apply text-gray-500
+    @apply text-gray-500 dark:text-gray-400
   }
 
   .sub-heading {
@@ -66,5 +70,13 @@ code {
 
   .error::first-letter {
     @apply uppercase
+  }
+
+  .border-adaptive {
+    @apply border border-gray-200 dark:border-gray-600
+  }
+
+  .border-adaptive-bottom {
+    @apply border-b border-gray-200 dark:border-gray-600
   }
 }

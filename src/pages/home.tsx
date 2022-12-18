@@ -7,12 +7,6 @@ const Home = () => {
 
     return (
         <section className="relative">
-            {/* <img
-                src="/images/theatre.jpg"
-                className="absolute left-0 top-0 image h-full w-full"
-                alt=""
-            /> */}
-
             <div className="relative z-20 mt-[25px] text-muted">
                 <h1 className="text-2xl tracking-widest mb-3 font-semibold">
                     Welcome to <span className="highlight">Movi</span>

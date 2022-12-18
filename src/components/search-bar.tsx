@@ -31,8 +31,10 @@ const SearchBar = ({ placeholder, onSubmit }: SearchBarProps) => {
     return (
         <form onSubmit={handleSubmit((data) => handleFormSubmit(data.query))}>
             <div
-                className={`flex items-center border rounded-full py-2 w-[275px] px-2 bg-gray-50 ${
-                    isFocused ? "border-blue-500" : "border-gray-300"
+                className={`flex items-center border rounded-full py-2 w-[275px] px-2 bg-gray-50 dark:bg-gray-700 ${
+                    isFocused
+                        ? "border-blue-500"
+                        : "border-gray-300 dark:border-gray-700"
                 } transition-border duration-200`}
             >
                 <MagnifyingGlassIcon
@@ -44,7 +46,7 @@ const SearchBar = ({ placeholder, onSubmit }: SearchBarProps) => {
                     placeholder={placeholder}
                     onFocus={() => setIsFocused(true)}
                     onBlur={() => setIsFocused(false)}
-                    className="flex-1 outline-none mr-2 bg-transparent"
+                    className="flex-1 outline-none mr-2 bg-transparent black-white"
                 />
             </div>
         </form>

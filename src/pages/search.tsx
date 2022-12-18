@@ -89,7 +89,7 @@ const Search = () => {
     return (
         <div>
             {/* results info */}
-            <div className="mb-5 text-gray-500">
+            <div className="mb-4 text-muted-x">
                 <p className="text-lg">
                     Showing results for -{" "}
                     <span className="text-blue-400 font-semibold">{query}</span>

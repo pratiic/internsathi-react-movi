@@ -59,18 +59,18 @@ const MovieDetails = () => {
 
     return (
         <section>
-            <div className="flex flex-col 850:flex-row gap-3 850:gap-7 pt-5 mb-7">
+            <div className="flex flex-col 850:flex-row gap-3 850:gap-7 pt-2 500:pt-3 mb-7">
                 <div className="flex flex-col 500:flex-row gap-3 500:gap-5">
                     {/* movie poster */}
                     <img
                         src={details?.Poster}
                         alt="poster"
-                        className="max-h-[275px] min-h-[200px] w-[200px] bg-gray-100 rounded"
+                        className="max-h-[275px] min-h-[200px] w-[200px] bg-gray-100 dark:bg-gray-700 rounded"
                     />
 
                     <div>
                         {/* movie title and release year */}
-                        <h2 className="text-2xl tracking-wide max-w-[500px]">
+                        <h2 className="text-2xl tracking-wide max-w-[500px] black-white">
                             {details?.Title}{" "}
                             <span className="text-muted text-xl">
                                 ({details?.Year})
@@ -100,7 +100,7 @@ const MovieDetails = () => {
                                         <span className="text-muted">N/A</span>
                                     ) : (
                                         <React.Fragment>
-                                            <span className="text-black font-semibold">
+                                            <span className="black-white font-semibold">
                                                 {details?.imdbRating}
                                             </span>
                                             <span> / 10</span>
