@@ -1,12 +1,13 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { fetcher } from "../lib/http";
 
-import MovieRatings, { Rating } from "../components/movie-ratings";
+import RatingsContainer from "../components/ratings-container";
 import ActorsContainer from "../components/actors-container";
 import SecondaryDetails from "../components/secondary-details";
 import LoadingStatus from "../components/loading-status";
+import Overview from "../components/overview";
 
 const MovieDetails = () => {
     const [details, setDetails] = useState<any>(null);
@@ -35,7 +36,7 @@ const MovieDetails = () => {
 
             if (data.Response === "False") {
                 throw new Error(
-                    `movie with imdb ID ${imdbID} could not be found`
+                    `movie with imdb ID - ${imdbID} - could not be found`
                 );
             }
 
@@ -53,18 +54,18 @@ const MovieDetails = () => {
     }
 
     if (errorMsg) {
-        return <p>{errorMsg}</p>;
+        return <p className="error">{errorMsg}</p>;
     }
 
     return (
         <section>
-            <div className="flex pt-5 mb-5">
-                <div className="flex mr-7">
+            <div className="flex flex-col 850:flex-row gap-3 850:gap-7 pt-5 mb-7">
+                <div className="flex flex-col 500:flex-row gap-3 500:gap-5">
                     {/* movie poster */}
                     <img
                         src={details?.Poster}
                         alt="poster"
-                        className="mr-7 max-h-[350px] min-h-[200px] min-w-[250px] bg-gray-100"
+                        className="max-h-[275px] min-h-[200px] w-[200px] bg-gray-100 rounded"
                     />
 
                     <div>
@@ -95,26 +96,26 @@ const MovieDetails = () => {
 
                             <div className="flex flex-col">
                                 <span>
-                                    <span className="text-black font-semibold">
-                                        {details?.imdbRating}
-                                    </span>
-                                    <span> / 10</span>
+                                    {details?.imdbRating === "N/A" ? (
+                                        <span className="text-muted">N/A</span>
+                                    ) : (
+                                        <React.Fragment>
+                                            <span className="text-black font-semibold">
+                                                {details?.imdbRating}
+                                            </span>
+                                            <span> / 10</span>
+                                        </React.Fragment>
+                                    )}
                                 </span>
 
                                 <span className="text-xs">
-                                    ({details?.imdbVotes})
+                                    ({details?.imdbVotes} votes)
                                 </span>
                             </div>
                         </div>
 
                         {/* movie overview */}
-                        <div className="mb-2">
-                            <h3>Overview</h3>
-
-                            <p className="text-muted max-w-[500px]">
-                                {details?.Plot}
-                            </p>
-                        </div>
+                        <Overview overview={details?.Plot} />
                     </div>
                 </div>
 
@@ -123,8 +124,8 @@ const MovieDetails = () => {
             </div>
 
             {/* movie ratings */}
-            <div className="mb-3">
-                <MovieRatings Ratings={details?.Ratings} />
+            <div className="mb-5">
+                <RatingsContainer Ratings={details?.Ratings} />
             </div>
 
             {/* movie actors */}

@@ -11,12 +11,10 @@ function App() {
             <main className="min-h-screen">
                 <Header />
 
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                </Routes>
-
                 <section className="wrapper pt-3 pb-7">
                     <Routes>
+                        <Route path="/" element={<Home />} />
+
                         <Route path="/search">
                             <Route path=":query" element={<Search />} />
                         </Route>

@@ -32,18 +32,18 @@ const SearchBar = ({ placeholder, onSubmit }: SearchBarProps) => {
         <form onSubmit={handleSubmit((data) => handleFormSubmit(data.query))}>
             <div
                 className={`flex items-center border rounded-full py-2 w-[275px] px-2 bg-gray-50 ${
-                    isFocused ? "border-blue-400" : "border-gray-300"
+                    isFocused ? "border-blue-500" : "border-gray-300"
                 } transition-border duration-200`}
             >
                 <MagnifyingGlassIcon
-                    className={`icon mr-2 text-gray-500 transition-text duration-200`}
+                    className={`icon mr-2 text-gray-500 transition-text duration-200 shrink-0`}
                 />
                 <input
                     {...queryField}
                     type="text"
                     placeholder={placeholder}
-                    onFocus={(event) => setIsFocused(true)}
-                    onBlur={(event) => setIsFocused(false)}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
                     className="flex-1 outline-none mr-2 bg-transparent"
                 />
             </div>

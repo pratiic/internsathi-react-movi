@@ -13,7 +13,7 @@ const Home = () => {
                 alt=""
             /> */}
 
-            <div className="wrapper relative z-20 mt-[25px] text-muted">
+            <div className="relative z-20 mt-[25px] text-muted">
                 <h1 className="text-2xl tracking-widest mb-3 font-semibold">
                     Welcome to <span className="highlight">Movi</span>
                 </h1>
