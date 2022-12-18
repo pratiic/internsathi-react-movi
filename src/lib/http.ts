@@ -6,7 +6,7 @@ export const fetcher = async (url: string) => {
     try {
         const res = await axios({
             method: "GET",
-            url: `https://www.omdbapi.com/?apikey=34c6327&${url}&type=movie`,
+            url: `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_API_KEY}&${url}&type=movie`,
         });
 
         return res.data;
